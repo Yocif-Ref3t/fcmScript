@@ -14,7 +14,7 @@ app.post('/send', async (req, res) => {
   const { tokens, title, body } = req.body;
 
   try {
-    const response = await admin.messaging().sendMulticast({
+    const response = await admin.messaging().sendToDevice({
       tokens,
       notification: { title, body },
     });
