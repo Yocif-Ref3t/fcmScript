@@ -1,14 +1,17 @@
-const express = require('express');
-const admin = require('firebase-admin');
+import  express from 'express';
+import  admin  from 'firebase-admin';
 
 const app = express();
 app.use(express.json());
 
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+if (!admin.apps.length) {
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+      });
+}
+
 
 app.post('/send', async (req, res) => {
   const { tokens, title, body } = req.body;
